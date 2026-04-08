@@ -1,0 +1,23 @@
+services:
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: "journi.mssql"
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+    ports:
+      - "1433:1433"
+  coding.challenge.api:
+    image: coding.challenge.api
+    depends_on:
+      - sqldata
+    build:
+      context: .
+      dockerfile: src/CodingChallenge/CodingChallenge.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "5001:443"
