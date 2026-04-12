@@ -20,8 +20,4 @@
 	<ItemGroup>
 		<ProjectReference Include="..\CodingChallenge.Core\CodingChallenge.Core.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Mappings\" />
-	  <Folder Include="Repository\" />
-	</ItemGroup>
 </Project>

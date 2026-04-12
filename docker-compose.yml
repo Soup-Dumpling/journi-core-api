@@ -11,7 +11,8 @@ services:
   coding.challenge.api:
     image: coding.challenge.api
     depends_on:
-      - sqldata
+      sqldata:
+        condition: service_healthy
     build:
       context: .
       dockerfile: src/CodingChallenge/CodingChallenge.Api/Dockerfile

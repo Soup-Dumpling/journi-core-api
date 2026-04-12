@@ -26,8 +26,4 @@
 		<ProjectReference Include="..\CodingChallenge.Core\CodingChallenge.Core.csproj" />
         <ProjectReference Include="..\CodingChallenge.Infrastructure\CodingChallenge.Infrastructure.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Controllers\" />
-	  <Folder Include="Models\" />
-	</ItemGroup>
 </Project>
