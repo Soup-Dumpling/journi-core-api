@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Journi.CodingChallenge.Infrastructure.Migrations
 {
     [DbContext(typeof(CodingChallengeDbContext))]
-    [Migration("20260411222958_Initialise")]
+    [Migration("20260502170950_Initialise")]
     partial class Initialise
     {
         /// <inheritdoc />
@@ -50,7 +50,7 @@ namespace Journi.CodingChallenge.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("NoiseCancellationType")
                         .HasColumnType("nvarchar(max)");
@@ -58,6 +58,9 @@ namespace Journi.CodingChallenge.Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("ReleaseDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
@@ -69,6 +72,10 @@ namespace Journi.CodingChallenge.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Headphones");
 
@@ -85,6 +92,7 @@ namespace Journi.CodingChallenge.Infrastructure.Migrations
                             Name = "Beyerdynamic DT 770 Pro",
                             NoiseCancellationType = "None",
                             Price = 179m,
+                            ReleaseDate = new DateTime(2024, 4, 19, 9, 0, 0, 0, DateTimeKind.Utc),
                             Type = "Over-Ear",
                             Weight = "270 grams",
                             Wireless = false
@@ -101,6 +109,7 @@ namespace Journi.CodingChallenge.Infrastructure.Migrations
                             Name = "Bose Noise Cancelling Headphones 700",
                             NoiseCancellationType = "Adaptive Noise Cancellation",
                             Price = 379.95m,
+                            ReleaseDate = new DateTime(2019, 6, 30, 9, 0, 0, 0, DateTimeKind.Utc),
                             Type = "Over-Ear",
                             Weight = "250 grams",
                             Wireless = true
@@ -117,6 +126,7 @@ namespace Journi.CodingChallenge.Infrastructure.Migrations
                             Name = "AKG K371",
                             NoiseCancellationType = "None",
                             Price = 149m,
+                            ReleaseDate = new DateTime(2019, 8, 26, 9, 0, 0, 0, DateTimeKind.Utc),
                             Type = "Over-Ear",
                             Weight = "255 grams",
                             Wireless = false
@@ -133,6 +143,7 @@ namespace Journi.CodingChallenge.Infrastructure.Migrations
                             Name = "Sony WH-1000XM4",
                             NoiseCancellationType = "Active Noise Cancellation",
                             Price = 349.99m,
+                            ReleaseDate = new DateTime(2020, 8, 18, 9, 0, 0, 0, DateTimeKind.Utc),
                             Type = "Over-Ear",
                             Weight = "254 grams",
                             Wireless = true
@@ -149,6 +160,7 @@ namespace Journi.CodingChallenge.Infrastructure.Migrations
                             Name = "Jabra Elite 85h",
                             NoiseCancellationType = "Hybrid Active Noise Cancellation",
                             Price = 249.99m,
+                            ReleaseDate = new DateTime(2019, 4, 15, 9, 0, 0, 0, DateTimeKind.Utc),
                             Type = "Over-Ear",
                             Weight = "296 grams",
                             Wireless = true
@@ -165,6 +177,7 @@ namespace Journi.CodingChallenge.Infrastructure.Migrations
                             Name = "Audio-Technica ATH-M50x",
                             NoiseCancellationType = "None",
                             Price = 149m,
+                            ReleaseDate = new DateTime(2014, 1, 23, 9, 0, 0, 0, DateTimeKind.Utc),
                             Type = "Over-Ear",
                             Weight = "285 grams",
                             Wireless = false
@@ -181,6 +194,7 @@ namespace Journi.CodingChallenge.Infrastructure.Migrations
                             Name = "Beats Solo Pro",
                             NoiseCancellationType = "Active Noise Cancellation",
                             Price = 299.95m,
+                            ReleaseDate = new DateTime(2019, 10, 30, 9, 0, 0, 0, DateTimeKind.Utc),
                             Type = "On-Ear",
                             Weight = "267 grams",
                             Wireless = true
@@ -197,8 +211,75 @@ namespace Journi.CodingChallenge.Infrastructure.Migrations
                             Name = "Sennheiser HD 800 S",
                             NoiseCancellationType = "Passive Noise Cancellation",
                             Price = 1499.95m,
+                            ReleaseDate = new DateTime(2015, 12, 14, 9, 0, 0, 0, DateTimeKind.Utc),
                             Type = "Over-Ear",
                             Weight = "330 grams",
+                            Wireless = false
+                        });
+                });
+
+            modelBuilder.Entity("Journi.CodingChallenge.Core.Models.Entities.Keyboard", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageFileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsMechanical")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("ReleaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Weight")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Wireless")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
+                    b.ToTable("Keyboards");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("3d123b03-4ba3-4538-a8b9-3b5ca640d134"),
+                            Description = "A high-performance keyboard, engineered for comfortable, fast, fluid typing, with smart illumination, and programmable keys.",
+                            ImageFileName = "logi-mx-keys-s-intro.webp",
+                            IsMechanical = false,
+                            Name = "Logitech MX Keys S Keyboard",
+                            Price = 109.99m,
+                            ReleaseDate = new DateTime(2023, 6, 6, 9, 0, 0, 0, DateTimeKind.Utc),
+                            Weight = "810 grams",
+                            Wireless = true
+                        },
+                        new
+                        {
+                            Id = new Guid("b2bbd6c9-b3e0-4a36-b73e-c85a7d120b5c"),
+                            Description = "Push the boundaries with cutting-edge, industry-leading OmniPoint 3.0 switches, now with brand new features that change the way you game: Rapid Trigger, Protection Mode, Rapid Tap and GG QuickSet.",
+                            ImageFileName = "apex_pro_tkl_black_img_buy_01.png",
+                            IsMechanical = true,
+                            Name = "Steelseries Apex Pro TKL Gen 3 Gaming Keyboard",
+                            Price = 184.99m,
+                            ReleaseDate = new DateTime(2025, 3, 25, 9, 0, 0, 0, DateTimeKind.Utc),
+                            Weight = "1403 grams",
                             Wireless = false
                         });
                 });

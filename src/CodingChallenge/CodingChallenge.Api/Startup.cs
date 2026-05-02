@@ -1,5 +1,7 @@
-﻿using Journi.CodingChallenge.Api.Filters;
+﻿using FluentValidation;
+using Journi.CodingChallenge.Api.Filters;
 using Journi.CodingChallenge.Api.Middleware;
+using Journi.CodingChallenge.Core.UseCases.Headphone.CreateHeadphone;
 using Journi.CodingChallenge.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -38,7 +40,8 @@ namespace Journi.CodingChallenge.Api
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorPipelineBehaviour<,>));
 
-
+            AssemblyScanner.FindValidatorsInAssembly(typeof(CreateHeadphoneCommandValidator).Assembly)
+                .ForEach(item => services.AddScoped(item.InterfaceType, item.ValidatorType));
 
             services.AddControllers()
                 .AddJsonOptions(opt =>
@@ -56,6 +59,7 @@ namespace Journi.CodingChallenge.Api
             services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssembly(typeof(Startup).Assembly);
+                cfg.RegisterServicesFromAssembly(typeof(CreateHeadphoneCommand).Assembly);
             });
 
             services.AddRouting(options =>

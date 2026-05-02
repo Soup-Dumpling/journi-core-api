@@ -1,12 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Journi.CodingChallenge.Core.Interfaces;
+using Journi.CodingChallenge.Infrastructure.Repository.Headphone;
+using Journi.CodingChallenge.Infrastructure.Repository.Keyboard;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Journi.CodingChallenge.Infrastructure
 {
@@ -23,7 +21,16 @@ namespace Journi.CodingChallenge.Infrastructure
                 });
             });
 
-
+            services.AddScoped<ICreateHeadphoneRepository, CreateHeadphoneRepository>();
+            services.AddScoped<IGetHeadphoneRepository, GetHeadphoneRepository>();
+            services.AddScoped<IGetHeadphonesRepository, GetHeadphonesRepository>();
+            services.AddScoped<IUpdateHeadphoneRepository, UpdateHeadphoneRepository>();
+            services.AddScoped<IDeleteHeadphoneRepository, DeleteHeadphoneRepository>();
+            services.AddScoped<ICreateKeyboardRepository, CreateKeyboardRepository>();
+            services.AddScoped<IGetKeyboardRepository, GetKeyboardRepository>();
+            services.AddScoped<IGetKeyboardsRepository, GetKeyboardsRepository>();
+            services.AddScoped<IUpdateKeyboardRepository, UpdateKeyboardRepository>();
+            services.AddScoped<IDeleteKeyboardRepository, DeleteKeyboardRepository>();
         }
     }
 }
