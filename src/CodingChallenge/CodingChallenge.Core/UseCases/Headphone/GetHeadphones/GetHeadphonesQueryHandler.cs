@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Journi.CodingChallenge.Core.UseCases.Headphone.GetHeadphones
 {
-    public class GetHeadphonesQueryHandler : IRequestHandler<GetHeadphonesQuery, PagedResult<Models.Entities.Headphone>>
+    public class GetHeadphonesQueryHandler : IRequestHandler<GetHeadphonesQuery, PagedResult<GetHeadphonesQueryDTO>>
     {
         private readonly IGetHeadphonesRepository getHeadphonesRepository;
 
@@ -15,7 +15,7 @@ namespace Journi.CodingChallenge.Core.UseCases.Headphone.GetHeadphones
             this.getHeadphonesRepository = getHeadphonesRepository;
         }
 
-        public async Task<PagedResult<Models.Entities.Headphone>> Handle(GetHeadphonesQuery query, CancellationToken cancellationToken)
+        public async Task<PagedResult<GetHeadphonesQueryDTO>> Handle(GetHeadphonesQuery query, CancellationToken cancellationToken)
         {
             var result = await getHeadphonesRepository.GetHeadphonesAsync(query.PageSize, query.Page, query.Name, query.Manufacturer, query.Color, query.Wireless, query.Mic);
             return result;

@@ -16,11 +16,11 @@ namespace Journi.CodingChallenge.Infrastructure.Repository.Headphone
             this.context = context;
         }
 
-        public async Task<PagedResult<Core.Models.Entities.Headphone>> GetHeadphonesAsync(int pageSize, int page, string name, string manufacturer, string color, bool? wireless, bool? mic)
+        public async Task<PagedResult<GetHeadphonesQueryDTO>> GetHeadphonesAsync(int pageSize, int page, string name, string manufacturer, string color, bool? wireless, bool? mic)
         {
             if (page <= 0 || pageSize <= 0)
             {
-                return new PagedResult<Core.Models.Entities.Headphone>(new List<Core.Models.Entities.Headphone>(), 0);
+                return new PagedResult<GetHeadphonesQueryDTO>(new List<GetHeadphonesQueryDTO>(), 0);
             }
 
             var query = context.Headphones
@@ -29,7 +29,20 @@ namespace Journi.CodingChallenge.Infrastructure.Repository.Headphone
                 && (string.IsNullOrEmpty(manufacturer) || x.Manufacturer.Contains(manufacturer))
                 && (string.IsNullOrEmpty(color) || x.Color.Contains(color))
                 && (!wireless.HasValue || x.Wireless == wireless.Value)
-                && (!mic.HasValue || x.Mic == mic.Value));
+                && (!mic.HasValue || x.Mic == mic.Value)
+                ).Select(x => new GetHeadphonesQueryDTO()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Manufacturer = x.Manufacturer,
+                    Price = x.Price,
+                    ImageFileName = x.ImageFileName,
+                    Color = x.Color,
+                    Type = x.Type,
+                    BatteryLife = x.BatteryLife,
+                    Wireless = x.Wireless,
+                    Mic = x.Mic,
+                });
 
             var result = await query
                 .OrderBy(x => x.Name)
@@ -39,7 +52,7 @@ namespace Journi.CodingChallenge.Infrastructure.Repository.Headphone
 
             var count = result.Count;
 
-            return new PagedResult<Core.Models.Entities.Headphone>(result, count);
+            return new PagedResult<GetHeadphonesQueryDTO>(result, count);
         }
     }
 }

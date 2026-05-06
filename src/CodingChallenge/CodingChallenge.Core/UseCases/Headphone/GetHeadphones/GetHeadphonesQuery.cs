@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Journi.CodingChallenge.Core.UseCases.Headphone.GetHeadphones
 {
-    public class GetHeadphonesQuery : IRequest<PagedResult<Models.Entities.Headphone>>
+    public class GetHeadphonesQuery : IRequest<PagedResult<GetHeadphonesQueryDTO>>
     {
         public int PageSize { get; set; }
         public int Page { get; set; }

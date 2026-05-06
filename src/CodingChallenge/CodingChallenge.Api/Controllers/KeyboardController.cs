@@ -42,7 +42,7 @@ namespace Journi.CodingChallenge.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<PagedResult<Core.Models.Entities.Keyboard>> GetKeyboards([FromQuery] GetKeyboardsRequest model)
+        public async Task<PagedResult<GetKeyboardsQueryDTO>> GetKeyboards([FromQuery] GetKeyboardsRequest model)
         {
             var query = new GetKeyboardsQuery(model.PageSize, model.Page, model.Name, model.Wireless, model.IsMechanical);
             var response = await mediator.Send(query);

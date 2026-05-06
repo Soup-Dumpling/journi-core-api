@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Journi.CodingChallenge.Core.UseCases.Keyboard.GetKeyboards
 {
-    public class GetKeyboardsQuery : IRequest<PagedResult<Models.Entities.Keyboard>>
+    public class GetKeyboardsQuery : IRequest<PagedResult<GetKeyboardsQueryDTO>>
     {
         public int PageSize { get; set; }
         public int Page { get; set; }

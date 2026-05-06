@@ -6,6 +6,6 @@ namespace Journi.CodingChallenge.Core.Interfaces
 {
     public interface IGetHeadphonesRepository
     {
-        Task<PagedResult<Headphone>> GetHeadphonesAsync(int pageSize, int page, string name, string manufacturer, string color, bool? wireless, bool? mic);
+        Task<PagedResult<GetHeadphonesQueryDTO>> GetHeadphonesAsync(int pageSize, int page, string name, string manufacturer, string color, bool? wireless, bool? mic);
     }
 }

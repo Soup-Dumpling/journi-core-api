@@ -16,18 +16,27 @@ namespace Journi.CodingChallenge.Infrastructure.Repository.Keyboard
             this.context = context;
         }
 
-        public async Task<PagedResult<Core.Models.Entities.Keyboard>> GetKeyboardsAsync(int pageSize, int page, string name, bool? wireless, bool? isMechanical)
+        public async Task<PagedResult<GetKeyboardsQueryDTO>> GetKeyboardsAsync(int pageSize, int page, string name, bool? wireless, bool? isMechanical)
         {
             if (page <= 0 || pageSize <= 0)
             {
-                return new PagedResult<Core.Models.Entities.Keyboard>(new List<Core.Models.Entities.Keyboard>(), 0);
+                return new PagedResult<GetKeyboardsQueryDTO>(new List<GetKeyboardsQueryDTO>(), 0);
             }
 
             var query = context.Keyboards
                 .AsNoTracking()
                 .Where(x => (string.IsNullOrEmpty(name) || x.Name.Contains(name))
                 && (!wireless.HasValue || x.Wireless == wireless.Value)
-                && (!isMechanical.HasValue || x.IsMechanical == isMechanical.Value));
+                && (!isMechanical.HasValue || x.IsMechanical == isMechanical.Value)
+                ).Select(x => new GetKeyboardsQueryDTO()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Price = x.Price,
+                    ImageFileName = x.ImageFileName,
+                    Wireless = x.Wireless,
+                    IsMechanical = x.IsMechanical,
+                });
 
             var result = await query
                 .OrderBy(x => x.Name)
@@ -37,7 +46,7 @@ namespace Journi.CodingChallenge.Infrastructure.Repository.Keyboard
 
             var count = result.Count;
 
-            return new PagedResult<Core.Models.Entities.Keyboard>(result, count);
+            return new PagedResult<GetKeyboardsQueryDTO>(result, count);
         }
     }
 }

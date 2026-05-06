@@ -6,6 +6,6 @@ namespace Journi.CodingChallenge.Core.Interfaces
 {
     public interface IGetKeyboardsRepository
     {
-        Task<PagedResult<Keyboard>> GetKeyboardsAsync(int pageSize, int page, string name, bool? wireless, bool? isMechanical);
+        Task<PagedResult<GetKeyboardsQueryDTO>> GetKeyboardsAsync(int pageSize, int page, string name, bool? wireless, bool? isMechanical);
     }
 }

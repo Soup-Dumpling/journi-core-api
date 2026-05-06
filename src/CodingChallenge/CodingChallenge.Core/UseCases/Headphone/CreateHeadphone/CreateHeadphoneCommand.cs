@@ -3,7 +3,7 @@ using System;
 
 namespace Journi.CodingChallenge.Core.UseCases.Headphone.CreateHeadphone
 {
-    public class CreateHeadphoneCommand : IRequest
+    public class CreateHeadphoneCommand : IRequest<Guid>
     {
         public string BatteryLife { get; set; }
         public string Color { get; set; }

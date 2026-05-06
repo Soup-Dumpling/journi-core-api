@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Journi.CodingChallenge.Core.UseCases.Headphone.CreateHeadphone
 {
-    public class CreateHeadphoneCommandHandler : IRequestHandler<CreateHeadphoneCommand>
+    public class CreateHeadphoneCommandHandler : IRequestHandler<CreateHeadphoneCommand, Guid>
     {
         private readonly ICreateHeadphoneRepository createHeadphoneRepository;
 
@@ -17,7 +17,7 @@ namespace Journi.CodingChallenge.Core.UseCases.Headphone.CreateHeadphone
             this.createHeadphoneRepository = createHeadphoneRepository;
         }
 
-        public async Task Handle(CreateHeadphoneCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateHeadphoneCommand request, CancellationToken cancellationToken)
         {
             var errors = new Dictionary<string, string[]>();
             var headphoneExists = await createHeadphoneRepository.CheckHeadphoneExistsAsync(request.Name);
@@ -45,6 +45,7 @@ namespace Journi.CodingChallenge.Core.UseCases.Headphone.CreateHeadphone
                 Wireless = request.Wireless
             };
             await createHeadphoneRepository.AddHeadphoneAsync(headphone);
+            return headphone.Id;
         }
     }
 }
